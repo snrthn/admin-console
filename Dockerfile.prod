@@ -1,0 +1,33 @@
+FROM node:20.11.1-bullseye as builder
+
+WORKDIR /petaN/admin
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
+COPY . .
+
+RUN rm -rf node_modules
+
+RUN apt-get update
+
+RUN apt-get install -y python3 python-is-python3
+
+RUN npm install -g npm@latest
+
+RUN npm install
+
+RUN yarn add sharp
+
+RUN yarn global add gatsby-cli
+
+RUN yarn install
+
+RUN gatsby build
+
+FROM nginx
+
+EXPOSE 80 
+
+COPY --from=builder /petaN/admin/public /usr/share/nginx/html
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

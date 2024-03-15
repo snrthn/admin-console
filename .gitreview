@@ -1,0 +1,4 @@
+[gerrit]
+host=gerrit.raksmart.com
+port=29418
+project=petaN/petaN-admin-console

@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: petan-ec-admin:dev-latest
+    container_name: petaN-ec-admin
+    environment:
+      NODE_OPTIONS: --openssl-legacy-provider
+      PETAN_EC_BACKEND_URL: http://137.175.33.24:9000
